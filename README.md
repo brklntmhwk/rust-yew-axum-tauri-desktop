@@ -3,6 +3,8 @@
 Rust + Yew + Axum + Tauri + Tailwindcss, full-stack Rust development for Desktop apps, supports restful and
 websocket api.
 
+tauri アプリで sqlx + Docker を使うにはどのように実装したらよいのか？
+
 ## Crates
 
 - `frontend`: Yew frontend app for desktop client.

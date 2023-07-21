@@ -11,6 +11,7 @@ use tower_http::cors::{Any, CorsLayer};
 
 use types::UserInfo;
 
+// This is going to be called in tauri/src/main.rs with an unused port as a param
 pub async fn app(port: u16) {
     let app = Router::new()
         .route("/ws", get(ws_handler))
@@ -57,7 +58,7 @@ async fn handle_socket(mut socket: WebSocket) {
                     Message::Text(t) => {
                         // Echo
                         if socket
-                            .send(Message::Text(format!("Echo from backend: {}", t)))
+                            .send(Message::Text(format!("Echo from backend (backend/src/main.rs): {}", t)))
                             .await
                             .is_err()
                         {

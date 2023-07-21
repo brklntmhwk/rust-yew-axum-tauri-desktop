@@ -13,7 +13,9 @@ use types::UserInfo;
 
 #[tokio::main]
 async fn main() {
+    // define all routes here so they can be called from the frontend via API (reqwest in this case)
     let app = Router::new()
+        // the route method accepts verbs like GET or POST as its second param so you can do it to the corresponding endpoint
         .route("/ws", get(ws_handler))
         .route("/user", get(user_handler))
         .route("/", get(handler))
@@ -56,7 +58,10 @@ async fn handle_socket(mut socket: WebSocket) {
                     Message::Text(t) => {
                         // Echo
                         if socket
-                            .send(Message::Text(format!("Echo from backend: {}", t)))
+                            .send(Message::Text(format!(
+                                "Echo from backend (server/src/main.rs): {}",
+                                t
+                            )))
                             .await
                             .is_err()
                         {

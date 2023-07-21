@@ -63,10 +63,11 @@ fn app() -> Html {
         })
     };
 
+    // like useState([]) for React? Anyway this seems to be a state object
     let history = use_list(vec![]);
 
     // Manually connect to websocket with custom options.
-    let ws = {
+    let ws = { // ws is short for websocket of course
         let history = history.clone();
         let port = port.data.clone().unwrap_or_default();
         use_websocket_with_options(
@@ -74,7 +75,7 @@ fn app() -> Html {
             UseWebSocketOptions {
                 // Receive message by callback `onmessage`.
                 onmessage: Some(Box::new(move |message| {
-                    history.push(format!("ws [recv]: {}", message));
+                    history.push(format!("ws [recv]: {} No. {}", message, history.current().len()));
                 })),
                 manual: Some(true),
                 ..Default::default()

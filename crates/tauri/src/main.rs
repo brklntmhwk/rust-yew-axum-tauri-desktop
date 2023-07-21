@@ -12,12 +12,12 @@ fn main() {
     tauri::async_runtime::spawn(app(port));
     tauri::Builder::default()
         .manage(Port(port))
-        .invoke_handler(tauri::generate_handler![get_port])
+        .invoke_handler(tauri::generate_handler![get_port]) // add functions you want to call from the frontend here
         .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .expect("error while running tauri application"); // custom error msg to be printed upon activating the app here
 }
 
-/// A command to get the usused port, instead of 3000.
+/// A command to get the unused port, instead of 3000. This func is called in frontend/src/main.rs
 #[tauri::command]
 fn get_port(port: tauri::State<Port>) -> Result<String, String> {
     Ok(format!("{}", port.0))
